@@ -3,7 +3,7 @@ import random
 import time
 from streamlit_autorefresh import st_autorefresh
 
-st.set_page_config(page_title="Tablas PRO", page_icon="🧠")
+st.set_page_config(page_title="Tablas", page_icon="🧮")
 
 st.markdown("""
 <style>
@@ -210,3 +210,4 @@ elif st.session_state.pantalla == "fin":
     if st.button("Volver a empezar"):
         st.session_state.pantalla = "inicio"
         st.rerun()
+
