@@ -211,3 +211,12 @@ elif st.session_state.pantalla == "fin":
         st.session_state.pantalla = "inicio"
         st.rerun()
 
+st.markdown("---")
+col_footer = st.columns([10, 1])
+with col_footer[1]:
+    if st.button("🎁", key="easter_egg", help="¿Quién creó esto?"):
+        st.balloons()
+        st.info("Creado por chepe fortuna")
+        st.image("https://media.giphy.com/media/3o7abB06u9bNzA8LC8/giphy.gif", width=200)
+
+
