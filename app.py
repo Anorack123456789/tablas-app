@@ -8,52 +8,42 @@ st.set_page_config(page_title="Tablas", page_icon="🧮")
 st.markdown("""
 <style>
     @media (max-width: 600px) {
-        .stApp h1 {
-            font-size: 2rem !important;
-        }
-        .stApp h2 {
-            font-size: 1.5rem !important;
-        }
-        .stApp h3 {
-            font-size: 1.2rem !important;
-        }
-        .stButton button {
-            width: 100%;
-            font-size: 1.2rem !important;
-            padding: 0.75rem !important;
-        }
-        .stTextInput input {
-            font-size: 1.2rem !important;
-            padding: 0.75rem !important;
-        }
-        .stProgress > div > div > div > div {
-            height: 20px !important;
-        }
-        div[data-testid="column"] {
-            width: 100% !important;
-            flex: unset !important;
-        }
-        .element-container {
-            width: 100% !important;
-        }
+        .stApp h1 { font-size: 2rem !important; }
+        .stApp h2 { font-size: 1.5rem !important; }
+        .stApp h3 { font-size: 1.2rem !important; }
+        .stButton button { width: 100%; font-size: 1.2rem !important; padding: 0.75rem !important; }
+        .stTextInput input { font-size: 1.2rem !important; padding: 0.75rem !important; }
+        .stProgress > div > div > div > div { height: 20px !important; }
+        div[data-testid="column"] { width: 100% !important; flex: unset !important; }
+        .element-container { width: 100% !important; }
     }
-    .overlay-content {
+    .overlay-content { text-align: center; padding: 20px; }
+    .overlay-content h1 { font-size: 80px !important; }
+    .overlay-content h2 { font-size: 24px !important; }
+    @media (max-width: 600px) {
+        .overlay-content h1 { font-size: 60px !important; }
+        .overlay-content h2 { font-size: 18px !important; }
+    }
+    .easter-egg-btn button {
+        font-size: 2rem !important;
+        padding: 1rem 2rem !important;
+        background-color: #ffd700 !important;
+        color: black !important;
+        border-radius: 50px !important;
+        border: none !important;
+        cursor: pointer !important;
+        transition: transform 0.2s;
+    }
+    .easter-egg-btn button:hover {
+        transform: scale(1.1);
+        background-color: #ffea00 !important;
+    }
+    .easter-content {
         text-align: center;
         padding: 20px;
-    }
-    .overlay-content h1 {
-        font-size: 80px !important;
-    }
-    .overlay-content h2 {
-        font-size: 24px !important;
-    }
-    @media (max-width: 600px) {
-        .overlay-content h1 {
-            font-size: 60px !important;
-        }
-        .overlay-content h2 {
-            font-size: 18px !important;
-        }
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        margin-top: 20px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -78,6 +68,10 @@ if "incorrectas" not in st.session_state:
     st.session_state.incorrectas = 0
 if "intentos" not in st.session_state:
     st.session_state.intentos = 0
+if "show_easter_input" not in st.session_state:
+    st.session_state.show_easter_input = False
+if "easter_activated" not in st.session_state:
+    st.session_state.easter_activated = False
 
 def nueva_pregunta():
     if not st.session_state.pendientes:
@@ -211,13 +205,39 @@ elif st.session_state.pantalla == "fin":
         st.session_state.pantalla = "inicio"
         st.rerun()
 
+# Footer con Easter Egg
 st.markdown("---")
-col_footer = st.columns([10, 1])
-with col_footer[1]:
-    if st.button(".", key="easter_egg", help="¿Quién creó esto?"):
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.markdown('<div class="easter-egg-btn">', unsafe_allow_html=True)
+    if st.button(".", key="easter_main"):
+        st.session_state.show_easter_input = not st.session_state.show_easter_input
+        if not st.session_state.show_easter_input:
+            st.session_state.easter_activated = False
+        st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    if st.session_state.show_easter_input and not st.session_state.easter_activated:
+        with st.form("easter_form"):
+            clave = st.text_input("Ingresa la clave secreta:", type="password")
+            verificar = st.form_submit_button("Verificar")
+            if verificar:
+                if clave == "tung_tung_tung_ishowspeed":
+                    st.session_state.easter_activated = True
+                    st.session_state.show_easter_input = False
+                    st.rerun()
+                else:
+                    st.error("❌ Clave incorrecta")
+
+    if st.session_state.easter_activated:
         st.balloons()
-        st.info("Creado por ")
-        st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGFxbWoyZ3UzMnUzaTh6bzl5NzFxY3JrbzF0ODE5MTh5NjF5ZHhkNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/UDwouHnc3FCkvpjMnE/giphy.gif", width=200)
+        st.markdown('<div class="easter-content">', unsafe_allow_html=True)
+        st.info("Creado por **Tu Nombre Aquí**")
+        st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGFxbWoyZ3UzMnUzaTh6bzl5NzFxY3JrbzF0ODE5MTh5NjF5ZHhkNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/UDwouHnc3FCkvpjMnE/giphy.gif", width=300)
+        if st.button("Cerrar"):
+            st.session_state.easter_activated = False
+            st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
 
 
 
