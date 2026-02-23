@@ -214,9 +214,10 @@ elif st.session_state.pantalla == "fin":
 st.markdown("---")
 col_footer = st.columns([10, 1])
 with col_footer[1]:
-    if st.button("🎁", key="easter_egg", help="¿Quién creó esto?"):
+    if st.button(".", key="easter_egg", help="¿Quién creó esto?"):
         st.balloons()
-        st.info("Creado por chepe fortuna")
-        st.image("https://media.giphy.com/media/3o7abB06u9bNzA8LC8/giphy.gif", width=200)
+        st.info("Creado por ")
+        st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGFxbWoyZ3UzMnUzaTh6bzl5NzFxY3JrbzF0ODE5MTh5NjF5ZHhkNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/UDwouHnc3FCkvpjMnE/giphy.gif", width=200)
+
 
 
