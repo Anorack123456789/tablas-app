@@ -205,39 +205,8 @@ elif st.session_state.pantalla == "fin":
         st.session_state.pantalla = "inicio"
         st.rerun()
 
-# Footer con Easter Egg
-st.markdown("---")
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    st.markdown('<div class="easter-egg-btn">', unsafe_allow_html=True)
-    if st.button(".", key="easter_main"):
-        st.session_state.show_easter_input = not st.session_state.show_easter_input
-        if not st.session_state.show_easter_input:
-            st.session_state.easter_activated = False
-        st.rerun()
-    st.markdown('</div>', unsafe_allow_html=True)
 
-    if st.session_state.show_easter_input and not st.session_state.easter_activated:
-        with st.form("easter_form"):
-            clave = st.text_input("Ingresa la clave secreta:", type="password")
-            verificar = st.form_submit_button("Verificar")
-            if verificar:
-                if clave == "tung_tung_tung_ishowspeed":
-                    st.session_state.easter_activated = True
-                    st.session_state.show_easter_input = False
-                    st.rerun()
-                else:
-                    st.error("❌ Clave incorrecta")
 
-    if st.session_state.easter_activated:
-        st.balloons()
-        st.markdown('<div class="easter-content">', unsafe_allow_html=True)
-        st.info("Creado por **Tu Nombre Aquí**")
-        st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGFxbWoyZ3UzMnUzaTh6bzl5NzFxY3JrbzF0ODE5MTh5NjF5ZHhkNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/UDwouHnc3FCkvpjMnE/giphy.gif", width=300)
-        if st.button("Cerrar"):
-            st.session_state.easter_activated = False
-            st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
 
 
 
