@@ -149,10 +149,10 @@ elif st.session_state.pantalla == "juego":
                 if "Fácil" in st.session_state.nivel:
                     st.markdown(
                         """
-                        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 255, 0, 0.15); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 255, 0, 0.12); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <div class="overlay-content">
                                 <h1 style="font-size: 100px; margin: 0;">🎉</h1>
-                                <h2 style="color: green; margin: 0;">¡Correcto!</h2>
+                                <h2 style="color: white; margin: 0;">¡Correcto!</h2>
                             </div>
                         </div>
                         """,
@@ -169,10 +169,10 @@ elif st.session_state.pantalla == "juego":
                 if "Fácil" in st.session_state.nivel:
                     st.markdown(
                         f"""
-                        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 0, 0, 0.15); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 0, 0, 0.12); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <div class="overlay-content">
                                 <h1 style="font-size: 100px; margin: 0;">❌</h1>
-                                <h2 style="color: red; margin: 0;">Incorrecto. La respuesta era {st.session_state.respuesta_correcta}</h2>
+                                <h2 style="color: white; margin: 0;">Incorrecto. La respuesta era {st.session_state.respuesta_correcta}</h2>
                             </div>
                         </div>
                         """,
@@ -204,6 +204,7 @@ elif st.session_state.pantalla == "fin":
     if st.button("Volver a empezar"):
         st.session_state.pantalla = "inicio"
         st.rerun()
+
 
 
 
